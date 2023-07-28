@@ -2,10 +2,13 @@ package com.ericzCorp.revenda.entities;
 
 import java.io.Serializable;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,14 +22,19 @@ public class Vendedor implements Serializable{
     private String nome;
     private String cpf;
 
+    @ManyToOne
+    @JoinColumn(name = "loja_id")
+    private Loja lojaFk;
+
     public Vendedor() {
 
     }
 
-    public Vendedor(Long id, String nome, String cpf) {
+    public Vendedor(Long id, String nome, String cpf, Loja lojaFk) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
+        this.lojaFk = lojaFk;
     }
 
     public Long getId() {
@@ -51,6 +59,16 @@ public class Vendedor implements Serializable{
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    
+
+    public Loja getLojaFk() {
+        return lojaFk;
+    }
+
+    public void setLojaFk(Loja lojaFk) {
+        this.lojaFk = lojaFk;
     }
 
     @Override
