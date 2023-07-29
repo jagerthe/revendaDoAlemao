@@ -1,7 +1,10 @@
 package com.ericzCorp.revenda.entities;
 
 import java.io.Serializable;
+import java.time.Instant;
 
+import com.ericzCorp.revenda.entities.enums.StatusPedido;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,27 +12,27 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
 @Entity
-@Table(name = "tb_lojas")
-public class Loja implements Serializable{
+@Table(name = "tb_pedido")
+public class Pedido implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nomeLoja;
-    private String local;
-    
-    public Loja() {
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT")
+    private Instant data;
+
+    private Integer statusPedido;
+
+    public Pedido() {
 
     }
 
-    public Loja(Long id, String nomeLoja, String local) {
+    public Pedido(Long id, Instant data, StatusPedido statusPedido) {
         this.id = id;
-        this.nomeLoja = nomeLoja;
-        this.local = local;
-       // this.vendedorFk = vendedorFk;
+        this.data = data;
+        setStatusPedido(statusPedido);
     }
 
     public Long getId() {
@@ -40,20 +43,22 @@ public class Loja implements Serializable{
         this.id = id;
     }
 
-    public String getNomeLoja() {
-        return nomeLoja;
+    public Instant getData() {
+        return data;
     }
 
-    public void setNomeLoja(String nomeLoja) {
-        this.nomeLoja = nomeLoja;
+    public void setData(Instant data) {
+        this.data = data;
     }
 
-    public String getLocal() {
-        return local;
+    // buscando codigo pelo laco FOR na classe StatusPedido
+    public StatusPedido getStatusPedido() {
+        return StatusPedido.valueOf(statusPedido);
     }
 
-    public void setLocal(String local) {
-        this.local = local;
+    // encontrando o codigo pelo obj getCode na classe StatusPedido
+    public void setStatusPedido(StatusPedido statusPedido) {
+        this.statusPedido = statusPedido.getCodigo();
     }
 
     @Override
@@ -61,8 +66,6 @@ public class Loja implements Serializable{
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((nomeLoja == null) ? 0 : nomeLoja.hashCode());
-        result = prime * result + ((local == null) ? 0 : local.hashCode());
         return result;
     }
 
@@ -74,25 +77,15 @@ public class Loja implements Serializable{
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Loja other = (Loja) obj;
+        Pedido other = (Pedido) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (nomeLoja == null) {
-            if (other.nomeLoja != null)
-                return false;
-        } else if (!nomeLoja.equals(other.nomeLoja))
-            return false;
-        if (local == null) {
-            if (other.local != null)
-                return false;
-        } else if (!local.equals(other.local))
-            return false;
         return true;
     }
 
     
-
+    
 }

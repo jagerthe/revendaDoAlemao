@@ -9,26 +9,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ericzCorp.revenda.entities.Vendedor;
-import com.ericzCorp.revenda.services.VendedorServices;
+import com.ericzCorp.revenda.entities.Cliente;
+import com.ericzCorp.revenda.services.ClienteService;
 
 @RestController
-@RequestMapping(value = "/vendedores")
-public class VendedorResource {
+@RequestMapping(value = "/clientes")
+public class ClienteResource {
 
     @Autowired
-    public VendedorServices service;
+    public ClienteService service;
 
     @GetMapping
-    public ResponseEntity<List<Vendedor>> findAll() {
-        List<Vendedor> lista = service.findAll();
+    public ResponseEntity<List<Cliente>> findAll() {
+        List<Cliente> lista = service.findAll();
         return ResponseEntity.ok().body(lista);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Vendedor> findById(@PathVariable Long id) {
-        Vendedor v = service.findById(id);
-        return ResponseEntity.ok().body(v);
+    public ResponseEntity<Cliente> findById(@PathVariable Long id) {
+        Cliente c = service.findById(id);
+        return ResponseEntity.ok().body(c);
     }
     
 }

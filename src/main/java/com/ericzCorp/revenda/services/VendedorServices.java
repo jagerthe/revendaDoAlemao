@@ -19,9 +19,8 @@ public class VendedorServices {
         return repository.findAll();
     }
 
-    //public Vendedor findById(Long id) {
-    //    Optional<Vendedor> v = repository.findById(id);
-    //    return v.orElseThrow(() -> new ResourceNotFoundException());
-   // }
-    
+    public Vendedor findById(Long id) {
+        Optional<Vendedor> v = repository.findById(id);
+        return v.get();
+    } 
 }
