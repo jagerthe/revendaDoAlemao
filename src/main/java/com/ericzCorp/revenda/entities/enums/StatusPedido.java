@@ -1,12 +1,13 @@
 package com.ericzCorp.revenda.entities.enums;
 
+//Em Java, uma classe enum é uma construção especial que permite definir um tipo de dados com um conjunto fixo de constantes nomeadas.
+//Essas constantes são chamadas de "enumeradores" (ou "elementos") e são representadas como objetos da classe enum.
+
 public enum StatusPedido {
 
     WAITING_PAYMENT(1),
     PAID(2),
-    SHIPPED(3),
-    DELIVERED(4),
-    CANCELED(5);
+    CANCELED(3);
 
     private int codigo;
 

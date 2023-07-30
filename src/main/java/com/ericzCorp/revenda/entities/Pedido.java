@@ -2,6 +2,9 @@ package com.ericzCorp.revenda.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+
+import java.util.Set;
 
 import com.ericzCorp.revenda.entities.enums.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -10,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,6 +28,9 @@ public class Pedido implements Serializable {
     private Instant data;
 
     private Integer statusPedido;
+
+    //@OneToMany(mappedBy = "id.pedido")
+    //private Set<Carro> carros = new HashSet<>();
 
     public Pedido() {
 
@@ -60,6 +67,10 @@ public class Pedido implements Serializable {
     public void setStatusPedido(StatusPedido statusPedido) {
         this.statusPedido = statusPedido.getCodigo();
     }
+
+   // public Set<Carro> getCarros() {
+  //      return carros;
+  //  }
 
     @Override
     public int hashCode() {

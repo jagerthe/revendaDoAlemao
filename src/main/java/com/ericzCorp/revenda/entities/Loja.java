@@ -1,12 +1,14 @@
 package com.ericzCorp.revenda.entities;
 
 import java.io.Serializable;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 
@@ -20,6 +22,9 @@ public class Loja implements Serializable{
     private Long id;
     private String nomeLoja;
     private String local;
+
+    @OneToMany(mappedBy = "revenda")
+    private List<ListaCarrosRevenda> listCarros = new ArrayList<>();
     
     public Loja() {
 
@@ -29,7 +34,6 @@ public class Loja implements Serializable{
         this.id = id;
         this.nomeLoja = nomeLoja;
         this.local = local;
-       // this.vendedorFk = vendedorFk;
     }
 
     public Long getId() {
@@ -54,6 +58,10 @@ public class Loja implements Serializable{
 
     public void setLocal(String local) {
         this.local = local;
+    }
+
+    public List<ListaCarrosRevenda> getCarrosRevenda() {
+        return listCarros;
     }
 
     @Override
