@@ -101,8 +101,8 @@ public class TestConfig implements CommandLineRunner {
         ModeloCarro mdc1 = new ModeloCarro(null, "Hatch", 2015, "Fibra");
         ModeloCarro mdc2 = new ModeloCarro(null, "Camionete", 2019, "Metal");
 
-        Distribuidora dist1 = new Distribuidora(null, "Chevrolet", "Onix", 50.000);
-        Distribuidora dist2 = new Distribuidora(null, "Dodge", "Ram", 150.000);
+        Distribuidora dist1 = new Distribuidora(null, "Chevrolet", "Onix", 50.000, 500.00);
+        Distribuidora dist2 = new Distribuidora(null, "Dodge", "Ram", 150.000, 1.500);
 
         opcoesCarroRepository.saveAll(Arrays.asList(opc1, opc2));
         modeloCarroRepository.saveAll(Arrays.asList(mdc1, mdc2));
@@ -111,13 +111,13 @@ public class TestConfig implements CommandLineRunner {
         
         Pedido p1 = new Pedido(null, Instant.parse("2013-07-30T21:17:22Z"), StatusPedido.WAITING_PAYMENT, c1);
         pedidoRepository.save(p1);
-        MonteSeuCarro msc1 = new MonteSeuCarro(p1, opc2, mdc1, dist1);
+        MonteSeuCarro msc1 = new MonteSeuCarro(p1, opc2, mdc1, dist1, dist1.getSubtotal());
         monteSeuCarroRepository.save(msc1);
 
         // ---->MONTAGEM DE CARROS <----
 
         // ---->CARROS USADOS DISPONIVEIS NAS LOJAS <----
-        
+
     }
 
 }

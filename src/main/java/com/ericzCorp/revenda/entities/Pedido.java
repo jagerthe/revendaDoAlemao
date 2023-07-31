@@ -8,6 +8,7 @@ import java.util.Set;
 
 import com.ericzCorp.revenda.entities.enums.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +17,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -93,6 +93,15 @@ public class Pedido implements Serializable {
 
     public Set<MonteSeuCarro> getCarros() {
         return carro;
+    }
+
+    @JsonIgnore
+    public Double getTotal() {
+        double sum = 0.0;
+        for (MonteSeuCarro x : carro) {
+            sum += x.getTotal();
+        }
+        return sum;
     }
 
    // public ListaCarrosRevenda getCarrosRevenda() {

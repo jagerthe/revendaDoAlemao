@@ -32,6 +32,7 @@ public class CarroMontadoPK implements Serializable {
     @ManyToOne
     @JoinColumn(name = "distribuidora_id")
     private Distribuidora distribuidora;
+
     
     
 
@@ -66,6 +67,7 @@ public class CarroMontadoPK implements Serializable {
     public void setDistribuidora(Distribuidora distribuidora) {
         this.distribuidora = distribuidora;
     }
+
 
     @Override
     public int hashCode() {

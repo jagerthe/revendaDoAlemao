@@ -18,16 +18,21 @@ public class MonteSeuCarro implements Serializable {
     @EmbeddedId
     private CarroMontadoPK id = new CarroMontadoPK();
 
+    private Double precoTotal;
+
+
     public MonteSeuCarro() {
 
     }
 
-    public MonteSeuCarro(Pedido pedido, OpcoesCarro opcoesCarro, ModeloCarro modeloCarro, Distribuidora distribuidora) {
+    public MonteSeuCarro(Pedido pedido, OpcoesCarro opcoesCarro, ModeloCarro modeloCarro, Distribuidora distribuidora, Double precoTotal) {
         super();
         id.setPedido(pedido);
         id.setOpcoesCarro(opcoesCarro);
         id.setModeloCarro(modeloCarro);
         id.setDistribuidora(distribuidora);
+        id.getDistribuidora().getSubtotal();
+        this.precoTotal = precoTotal;
     }
 
     @JsonIgnore
@@ -70,6 +75,18 @@ public class MonteSeuCarro implements Serializable {
 
     public void setDistribuidora(Distribuidora distribuidora) {
         id.setDistribuidora(distribuidora);
+    }
+
+    public Double getPrecoTotal() {
+        return precoTotal;
+    }
+
+    public void setPrecoTotal(Double precoTotal) {
+        this.precoTotal = precoTotal;
+    }
+
+    public Double getTotal() {
+        return id.getDistribuidora().getSubtotal();
     }
 
     @Override

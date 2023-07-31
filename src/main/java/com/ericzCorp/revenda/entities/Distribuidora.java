@@ -2,6 +2,8 @@ package com.ericzCorp.revenda.entities;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,27 +12,30 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_distribuidora")
-public class Distribuidora implements Serializable{	
-	private static final long serialVersionUID = 1L;
+public class Distribuidora implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //por enquanto manter, mas irei remover veiculo e valor, e mover eles para modeloCarro
+    // por enquanto manter, mas irei remover veiculo e valor, e mover eles para
+    // modeloCarro
     private String marca;
     private String veiculo;
     private Double valor;
+    private Double valorManutencao;
 
     public Distribuidora() {
 
     }
 
-    public Distribuidora(Long id, String marca, String veiculo, Double valor) {
+    public Distribuidora(Long id, String marca, String veiculo, Double valor, Double valorManutencao) {
         this.id = id;
         this.marca = marca;
         this.veiculo = veiculo;
         this.valor = valor;
+        this.valorManutencao = valorManutencao;
     }
 
     public Long getId() {
@@ -65,6 +70,19 @@ public class Distribuidora implements Serializable{
         this.valor = valor;
     }
 
+    public Double getValorManutencao() {
+        return valorManutencao;
+    }
+
+    public void setValorManutencao(Double valorManutencao) {
+        this.valorManutencao = valorManutencao;
+    }
+
+    @JsonIgnore
+    public Double getSubtotal() {
+        return valor + valorManutencao;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -90,6 +108,4 @@ public class Distribuidora implements Serializable{
         return true;
     }
 
-    
-    
 }

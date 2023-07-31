@@ -2,7 +2,6 @@ package com.ericzCorp.revenda.entities;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,8 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -30,16 +27,13 @@ public class ListaCarrosRevenda implements Serializable {
     private double motor;
     private String transmissao;
     private String cor;
-    private double valor;
+    private Double valor;
 
     //mostrar os carros disponiveis somente na loja
     //e nao mostrar as lojas nos carros disponiveis
     @ManyToOne
     @JoinColumn(name = "loja_id")
     private Loja revenda;
-
-    @OneToOne
-    private Pedido pedido;
 
     public ListaCarrosRevenda() {
 
