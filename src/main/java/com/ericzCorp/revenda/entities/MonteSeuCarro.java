@@ -3,6 +3,7 @@ package com.ericzCorp.revenda.entities;
 import java.io.Serializable;
 
 import com.ericzCorp.revenda.entities.pk.CarroMontadoPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -21,20 +22,31 @@ public class MonteSeuCarro implements Serializable {
 
     }
 
-    public MonteSeuCarro(OpcoesCarro opcoesCarro, ModeloCarro modeloCarro, Distribuidora distribuidora) {
+    public MonteSeuCarro(Pedido pedido, OpcoesCarro opcoesCarro, ModeloCarro modeloCarro, Distribuidora distribuidora) {
         super();
+        id.setPedido(pedido);
         id.setOpcoesCarro(opcoesCarro);
         id.setModeloCarro(modeloCarro);
         id.setDistribuidora(distribuidora);
     }
 
-    public CarroMontadoPK getId() {
-        return id;
+    @JsonIgnore
+    public Pedido getPedido() {
+        return id.getPedido();
     }
 
-    public void setId(CarroMontadoPK id) {
-        this.id = id;
+    public void setPedido(Pedido pedido) {
+        id.setPedido(pedido);
     }
+
+
+    //public CarroMontadoPK getId() {
+      //  return id;
+    //}
+
+    //public void setId(CarroMontadoPK id) {
+      //  this.id = id;
+    //}
 
     public OpcoesCarro getOpcoesCarro() {
         return id.getOpcoesCarro();
@@ -52,7 +64,7 @@ public class MonteSeuCarro implements Serializable {
         id.setModeloCarro(modeloCarro);
     }
 
-    public Distribuidora geDistribuidora() {
+    public Distribuidora getDistribuidora() {
         return id.getDistribuidora();
     }
 

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -60,6 +62,9 @@ public class Loja implements Serializable{
         this.local = local;
     }
 
+    //esse json faz com q nao apareca os carros disponiveis quando se busca as lojas
+    //mas mostra a loja/carros em todo resto
+    @JsonIgnore
     public List<ListaCarrosRevenda> getCarrosRevenda() {
         return listCarros;
     }

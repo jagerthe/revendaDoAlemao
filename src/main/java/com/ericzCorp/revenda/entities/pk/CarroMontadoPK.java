@@ -5,6 +5,7 @@ import java.io.Serializable;
 import com.ericzCorp.revenda.entities.Distribuidora;
 import com.ericzCorp.revenda.entities.ModeloCarro;
 import com.ericzCorp.revenda.entities.OpcoesCarro;
+import com.ericzCorp.revenda.entities.Pedido;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
@@ -17,6 +18,10 @@ public class CarroMontadoPK implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ManyToOne
+    @JoinColumn(name = "pedido_id")
+    private Pedido pedido;
+
+    @ManyToOne
     @JoinColumn(name = "opcaocarro_id")
     private OpcoesCarro opcoesCarro;
 
@@ -27,6 +32,16 @@ public class CarroMontadoPK implements Serializable {
     @ManyToOne
     @JoinColumn(name = "distribuidora_id")
     private Distribuidora distribuidora;
+    
+    
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
 
     public OpcoesCarro getOpcoesCarro() {
         return opcoesCarro;

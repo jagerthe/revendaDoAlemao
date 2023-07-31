@@ -1,7 +1,10 @@
 package com.ericzCorp.revenda.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -28,6 +32,10 @@ public class Cliente implements Serializable {
     @ManyToOne
     @JoinColumn(name = "loja_id")
     private Loja clienteLoja;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedidos = new ArrayList<>();
 
     public Cliente() {
 
@@ -92,6 +100,11 @@ public class Cliente implements Serializable {
         this.genero = genero;
     }
 
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    
     public Loja getClienteLoja() {
         return clienteLoja;
     }

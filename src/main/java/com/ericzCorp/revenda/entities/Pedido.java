@@ -13,7 +13,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,22 +27,34 @@ public class Pedido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant data;
 
     private Integer statusPedido;
 
-    //@OneToMany(mappedBy = "id.pedido")
-    //private Set<Carro> carros = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
+    // monte seu carro para clientes que desejam carro 0km
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<MonteSeuCarro> carro = new HashSet<>();
+
+   // @OneToOne
+  //  private ListaCarrosRevenda carrosRevenda;
+  // Por enquanto, nao vou utilizar os carros prontos
+  // a ideia atual eh criar uma entidade extra de pedido
+  //como pedidoUsados
+  //e deixar essa classe atual apenas para os pedidos 0km
 
     public Pedido() {
-
     }
 
-    public Pedido(Long id, Instant data, StatusPedido statusPedido) {
+    public Pedido(Long id, Instant data, StatusPedido statusPedido, Cliente cliente) {
         this.id = id;
         this.data = data;
         setStatusPedido(statusPedido);
+        this.cliente = cliente;
     }
 
     public Long getId() {
@@ -68,9 +83,25 @@ public class Pedido implements Serializable {
         this.statusPedido = statusPedido.getCodigo();
     }
 
-   // public Set<Carro> getCarros() {
-  //      return carros;
-  //  }
+    public Cliente getPedidoCliente() {
+        return cliente;
+    }
+
+    public void setPedidoCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Set<MonteSeuCarro> getCarros() {
+        return carro;
+    }
+
+   // public ListaCarrosRevenda getCarrosRevenda() {
+   //     return carrosRevenda;
+   // }
+
+   // public void setCarrosRevenda(ListaCarrosRevenda carrosRevenda) {
+   //     this.carrosRevenda = carrosRevenda;
+   // }
 
     @Override
     public int hashCode() {
@@ -97,6 +128,4 @@ public class Pedido implements Serializable {
         return true;
     }
 
-    
-    
 }
